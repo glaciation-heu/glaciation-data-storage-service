@@ -1,6 +1,6 @@
 apiVersion: v2
-name: server
-description: Web server
+name: data-storage-service
+description: GLACIATION Data Storage Service
 type: application
 version: ""
 appVersion: ""
