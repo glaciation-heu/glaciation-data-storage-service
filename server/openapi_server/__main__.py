@@ -6,7 +6,14 @@ from openapi_server import encoder
 
 
 def main():
-    app = connexion.App(__name__, specification_dir='./openapi/')
+    options = {
+        'swagger_url': '/'
+    }
+    app = connexion.App(
+        __name__, 
+        specification_dir='./openapi/',
+        options=options
+    )
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('openapi.yaml',
                 arguments={'title': 'Data Storage Microservice'},
