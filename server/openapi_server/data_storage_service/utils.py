@@ -9,12 +9,13 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 DATA_ACCESS_BUCKET = 'data_access'
 ENERGY_CONSUMPTION_BUCKET = 'energy_consumption'
 ORG = 'glaciation'
-TOKEN = 'Rs03_DH_rzXgNAx5s0fHLfAKsnbSB1W3wBBOvBseICw13ibL8q0bVxUUJ7Ynu4D20J-9TGSoXHDwWaRFtUrZrg=='
-#URL = 'http://localhost:8086'
+#TOKEN = 'Rs03_DH_rzXgNAx5s0fHLfAKsnbSB1W3wBBOvBseICw13ibL8q0bVxUUJ7Ynu4D20J-9TGSoXHDwWaRFtUrZrg=='
+TOKEN = 'ShtOCpN6DLGQL6T-Tg0bM3Eng6OcH4gk8HMj65P8286CQtVnmzOQgf59DCLUCek0AuwiwP8qyKzU8z2p9Zpe3g=='
+URL = 'http://dss-db.integration:8086'
 # Minikube setting
-ORG = 'primary'
-TOKEN = 'YiORLlU2bDNwPjnOiFS4dAJDH61JHLFCUV6VkVvUiN_O92BS3KB63y1Uxj6eSX0Zc3yzn0Mzn3GyeJeLO_BWuw=='
-URL = 'http://10.244.0.21:8086'
+#ORG = 'primary'
+#TOKEN = 'YiORLlU2bDNwPjnOiFS4dAJDH61JHLFCUV6VkVvUiN_O92BS3KB63y1Uxj6eSX0Zc3yzn0Mzn3GyeJeLO_BWuw=='
+#URL = 'http://10.244.0.21:8086'
 
 
 client = influxdb_client.InfluxDBClient(
@@ -258,6 +259,7 @@ def readTimeseries(metricId, start_time=None, end_time=None):
 
     print(to_return)
     return json.dumps(to_return)
+
 
 if __name__ == '__main__':
     readPredictionResults('M1','2024-02-19T00:00:00Z')
