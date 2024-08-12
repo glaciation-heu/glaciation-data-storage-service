@@ -142,7 +142,7 @@ def readPredictionResults(metricId, forecasting_time):
     """
     query_api = client.query_api()
     start_time = '2000-01-01T00:00:00Z'
-    end_time = datetime.now(timezone.utc)
+    end_time = datetime.now(timezone.utc) + timedelta(days=7)
     end_time = end_time.strftime('%Y-%m-%dT%H:%M:%SZ')
     
     query = f'from(bucket:"{ENERGY_CONSUMPTION_BUCKET}")\

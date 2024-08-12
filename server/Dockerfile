@@ -11,6 +11,8 @@ COPY . /usr/src/app
 
 EXPOSE 8080
 
+ENV PYTHONUNBUFFERED=1 
+
 ENTRYPOINT ["python3"]
 
 CMD ["-m", "openapi_server"]
