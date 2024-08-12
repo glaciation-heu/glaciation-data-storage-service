@@ -152,7 +152,10 @@ def readPredictionResults(metricId, forecasting_time):
                 |> filter(fn:(r) => r._time == {forecasting_time}) \
                 |> group(columns: ["metricId","_time"]) \
                 |> sort(columns: ["forecasting_time"])'
+
+    print(f'Flux query: {query}')
     result = query_api.query(org=ORG, query=query)
+    print(f'Flux result: {result}')
 
     to_return = {
         'forecasting_values': [],
@@ -181,6 +184,7 @@ def readPredictionResults(metricId, forecasting_time):
             elif record.get_field() == 'forecasting_value':
                 to_return['forecasting_values'].append(record.get_value())
     to_return['forecasting_period'] = len(to_return['forecasting_values'])
+    print(f'JSON format result: {result}')
 
     ## Get time series used as an input for this prediction
 
