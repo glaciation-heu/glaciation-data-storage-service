@@ -12,6 +12,8 @@ ORG = 'glaciation'
 #TOKEN = 'Rs03_DH_rzXgNAx5s0fHLfAKsnbSB1W3wBBOvBseICw13ibL8q0bVxUUJ7Ynu4D20J-9TGSoXHDwWaRFtUrZrg=='
 TOKEN = '9vYn82nfTLcJ_JdpAfpQ4PLQKOnHUBtF7crIvKBovX1ZZQTtdXJwwVcVwfkIg8Qff5m6H8Pz70EwvOAE0Wma5w=='
 URL = 'http://data-storage-service-db-data-storage-service-db.dkg-engine.svc.cluster.local:8086'
+# VPN
+#URL = 'http://dss-db.integration'
 # Minikube setting
 #ORG = 'primary'
 #TOKEN = 'YiORLlU2bDNwPjnOiFS4dAJDH61JHLFCUV6VkVvUiN_O92BS3KB63y1Uxj6eSX0Zc3yzn0Mzn3GyeJeLO_BWuw=='
@@ -32,7 +34,7 @@ def writeDataAccessRecord(data_access_record):
     Parameters:
         data_access_record: data access record object
     """
-    write_api = client.write_api(write_opetions=SYNCHRONOUS)
+    write_api = client.write_api(write_opetions=SYNCHRONOUS,)
     # Write data access record to InfluxDB 
     r = influxdb_client.Point('data_access') \
             .tag('requestId', data_access_record.request_id) \
@@ -40,6 +42,7 @@ def writeDataAccessRecord(data_access_record):
             .field('value', 1) \
             .time(data_access_record.time, write_precision=WritePrecision.MS)
     write_api.write(bucket=DATA_ACCESS_BUCKET, org=ORG, record=r)
+    write_api.close()
     
 
 def readDataAccessRecord(dataId, start_time=None, end_time=None):
@@ -96,14 +99,19 @@ def writePredictionResults(metric):
 
     timeseries = []
     for i, v in enumerate(metric.timeseries):
+        time_formatted = datetime.combine(metric.time[i], time(0,0,0)).strftime('%Y-%m-%dT%H:%M:%SZ')
         r = influxdb_client.Point('timeseries') \
                 .tag('metricId', metric.metric_id) \
                 .tag('aggregation_interval', metric.aggregation_interval) \
                 .field('value', v) \
-                .time(datetime.combine(metric.time[i], time(0,0,0)))
+                .time(time_formatted, write_precision=WritePrecision.MS)
+        print(f'Writing to InfluxDB: {r.to_line_protocol()} ...')
         timeseries.append(r)
+        
+    print(f'timeseries: {timeseries}')
+        
     write_api.write(bucket=ENERGY_CONSUMPTION_BUCKET, org=ORG, record=timeseries)
-
+    
     ## Write prediction record to InfluxDB 
 
     forecasting_time = [
@@ -114,6 +122,8 @@ def writePredictionResults(metric):
     print(f'forecasting time: {forecasting_time}') 
     forecasting_timeseries = []
     for i,v in enumerate(forecasting_time):
+        time_formatted = datetime.combine(max(metric.time), time(0,0,0)).strftime('%Y-%m-%dT%H:%M:%SZ')
+        print(f'time formatted: {time_formatted}')
         r = influxdb_client.Point('forecasting') \
                 .tag('metricId', metric.metric_id) \
                 .tag('aggregation_interval', metric.aggregation_interval) \
@@ -123,10 +133,14 @@ def writePredictionResults(metric):
                 .field('forecasting_value', metric.forecasting_values[i]) \
                 .field('forecasting_upper', metric.forecasting_upper_bounds[i]) \
                 .field('forecasting_lower', metric.forecasting_lower_bounds[i]) \
-                .time(datetime.combine(max(metric.time), time(0,0,0)))
-        print(f'Writing to InfluxDB cloud: {r.to_line_protocol()} ...')
+                .time(time_formatted, write_precision=WritePrecision.MS)
+        print(f'Writing to InfluxDB: {r.to_line_protocol()} ...')
         forecasting_timeseries.append(r)
+        
     write_api.write(bucket=ENERGY_CONSUMPTION_BUCKET, org=ORG, record=forecasting_timeseries)
+    
+    print('Closing API')
+    write_api.close()
 
 
 def readPredictionResults(metricId, forecasting_time):
@@ -204,7 +218,7 @@ def readPredictionResults(metricId, forecasting_time):
     # Get timeseries
     query = f'from(bucket:"{ENERGY_CONSUMPTION_BUCKET}") \
                 |> range(start: {to_return["time"][0]}, stop: {stop}) \
-                |> filter(fn:(r) => r._measurement == "time_series")\
+                |> filter(fn:(r) => r._measurement == "timeseries")\
                 |> filter(fn:(r) => r.metricId == "{metricId}") \
                 |> sort(columns: ["_value"])'
     result = query_api.query(org=ORG, query=query)
