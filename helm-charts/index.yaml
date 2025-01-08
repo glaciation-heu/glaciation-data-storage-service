@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   data-storage-service:
   - apiVersion: v2
+    appVersion: 0.1.0-dev.12.main.9b97bd37
+    created: "2025-01-08T09:03:29.052338972Z"
+    description: GLACIATION Data Storage Service
+    digest: 78c98bb28fafff8c5bc391cd8d2f68b42902352dbcddcb4d24db1fa3a5f7c341
+    name: data-storage-service
+    type: application
+    urls:
+    - https://glaciation-heu.github.io/glaciation-data-storage-service/helm-charts/data-storage-service-0.1.0-dev.12.main.9b97bd37.tgz
+    version: 0.1.0-dev.12.main.9b97bd37
+  - apiVersion: v2
     appVersion: 0.1.0-dev.11.main.b8965a6a
     created: "2025-01-08T08:58:15.648805112Z"
     description: GLACIATION Data Storage Service
@@ -151,4 +161,4 @@ entries:
     urls:
     - https://glaciation-heu.github.io/glaciation-data-storage-service/helm-charts/data-storage-service-0.0.2.tgz
     version: 0.0.2
-generated: "2025-01-08T08:58:15.647993585Z"
+generated: "2025-01-08T09:03:29.051892214Z"
