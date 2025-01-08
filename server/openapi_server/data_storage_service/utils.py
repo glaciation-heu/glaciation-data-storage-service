@@ -9,8 +9,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 DATA_ACCESS_BUCKET = 'data_access'
 ENERGY_CONSUMPTION_BUCKET = 'energy_consumption'
 ORG = 'glaciation'
-#TOKEN = 'Rs03_DH_rzXgNAx5s0fHLfAKsnbSB1W3wBBOvBseICw13ibL8q0bVxUUJ7Ynu4D20J-9TGSoXHDwWaRFtUrZrg=='
-TOKEN = '9vYn82nfTLcJ_JdpAfpQ4PLQKOnHUBtF7crIvKBovX1ZZQTtdXJwwVcVwfkIg8Qff5m6H8Pz70EwvOAE0Wma5w=='
+TOKEN = 'iiN2cpMECn2ohmDQD8l4GDFUAwW7-GyV8a_IVZBPhJJY4kG6aBLERYZU4WsmBglWz4G72kUHxD_l_CUvT15Idw=='
 URL = 'http://data-storage-service-db-data-storage-service-db.dkg-engine.svc.cluster.local:8086'
 # VPN
 #URL = 'http://dss-db.integration'
