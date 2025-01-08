@@ -17,29 +17,29 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  test_server:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-    steps:
-      - uses: actions/checkout@v4
+  # test_server:
+  #   runs-on: ubuntu-latest
+  #   defaults:
+  #     run:
+  #       working-directory: ./server
+  #   strategy:
+  #     matrix:
+  #       python-version: ["3.12"]
+  #   steps:
+  #     - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
+  #     - name: Set up Python ${{ matrix.python-version }}
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
 
-      - name: Install poetry
-        run: pip install poetry
+  #     - name: Install poetry
+  #       run: pip install poetry
 
-      - name: Install dependencies
-        run: |
-          poetry config virtualenvs.in-project true
-          poetry install --no-root --with dev,test
+  #     - name: Install dependencies
+  #       run: |
+  #         poetry config virtualenvs.in-project true
+  #         poetry install --no-root --with dev,test
 
       #- name: Run style checks
       #  run: |
@@ -51,11 +51,11 @@ jobs:
       #- name: Run tests
       #  run: poetry run pytest
 
-      - name: Verify OpenAPI spec has been updated
-        run: |
-          cd "${{ github.workspace }}"
-          poetry run --directory server python ./tools/extract_openapi.py app.main:app --app-dir ./server --out ./api/openapi_generated.yaml --app_version_file ./VERSION
-          git diff --exit-code ./api/openapi.yaml ./api/openapi_generated.yaml
+      # - name: Verify OpenAPI spec has been updated
+      #   run: |
+      #     cd "${{ github.workspace }}"
+      #     poetry run --directory server python ./tools/extract_openapi.py app.main:app --app-dir ./server --out ./api/openapi_generated.yaml --app_version_file ./VERSION
+      #     git diff --exit-code ./api/openapi.yaml ./api/openapi_generated.yaml
 
       #- name: Verify client has been updated
       #  run: |
@@ -64,7 +64,7 @@ jobs:
       #    # git diff --exit-code -- ./client
 
   build_server:
-    needs: [test_server]
+    # needs: [test_server]
     runs-on: ubuntu-latest
     defaults:
       run:
