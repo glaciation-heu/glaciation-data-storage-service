@@ -10,7 +10,7 @@ DATA_ACCESS_BUCKET = 'data_access'
 ENERGY_CONSUMPTION_BUCKET = 'energy_consumption'
 ORG = 'glaciation'
 TOKEN = 'iiN2cpMECn2ohmDQD8l4GDFUAwW7-GyV8a_IVZBPhJJY4kG6aBLERYZU4WsmBglWz4G72kUHxD_l_CUvT15Idw=='
-TOKEN = 'QRnuswt6MNLFG2w3qx1Md9N_sIb43_ljjck_btUvlu7f41Af6d4_DXyKRza9DztolJvpMwME_Ha1lQoKpgYPvw=='
+#TOKEN = 'QRnuswt6MNLFG2w3qx1Md9N_sIb43_ljjck_btUvlu7f41Af6d4_DXyKRza9DztolJvpMwME_Ha1lQoKpgYPvw=='
 URL = 'http://data-storage-service-db-data-storage-service-db.dkg-engine.svc.cluster.local:8086'
 # VPN
 #URL = 'http://dss-db.integration'
