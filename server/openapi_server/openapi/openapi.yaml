@@ -57,8 +57,9 @@ paths:
         name: start_time
         required: false
         schema:
-          format: date-time
+          format: date
           type: string
+          example: '2021-01-01T00:00:00'
         style: form
       - description: Filtering end time of data access records
         explode: true
@@ -66,8 +67,9 @@ paths:
         name: end_time
         required: false
         schema:
-          format: date-time
+          format: date
           type: string
+          example: '2025-09-01T00:00:00'
         style: form
       - description: Data source Id
         explode: false
@@ -76,6 +78,7 @@ paths:
         required: true
         schema:
           type: string
+          example: 'D01'
         style: simple
       responses:
         "200":
@@ -181,6 +184,7 @@ paths:
         schema:
           format: date
           type: string
+          example: '2021-01-01T00:00:00'
         style: form
       - description: Filtering end time of timeseries
         explode: true
@@ -190,6 +194,7 @@ paths:
         schema:
           format: date
           type: string
+          example: '2025-09-01T00:00:00'
         style: form
       - description: Id of the metric to return
         explode: false
@@ -198,6 +203,7 @@ paths:
         required: true
         schema:
           type: string
+          example: 'M04'
         style: simple
       responses:
         "200":
