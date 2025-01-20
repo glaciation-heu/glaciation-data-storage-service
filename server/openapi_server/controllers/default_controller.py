@@ -53,8 +53,8 @@ def get_data_access_record(data_id, start_time=None, end_time=None):  # noqa: E5
 
     :rtype: Union[List[DataAccessRecord], Tuple[List[DataAccessRecord], int], Tuple[List[DataAccessRecord], int, Dict[str, str]]
     """
-    start_time = util.deserialize_datetime(start_time)
-    end_time = util.deserialize_datetime(end_time)
+    start_time = util.deserialize_date(start_time)
+    end_time = util.deserialize_date(end_time)
 
     return utils.readDataAccessRecord(data_id, start_time, end_time)
 

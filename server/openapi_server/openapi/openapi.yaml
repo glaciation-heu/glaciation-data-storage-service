@@ -3,7 +3,7 @@ info:
   contact:
     email: Guangyuan.Piao@dell.com
   description: "This is Data Storage Service (DSS) as part of the Novel Metadata Fabric\
-    \ based on the OpenAPI 3.1 specification. \n\nIt stores time series metrics and\
+    \ based on the OpenAPI 3.1 specification. \n\nIt stores time series metrics (metricId - M04) from kepler_container_joules_total metrics of Prometheus exporter and\
     \ forecasting results such as daily energy consumption metrics and forecasting\
     \ results from the prediction microservice and on the GLACIATION platform. It\
     \ writes the most recent history and prediction of energy consumption of the platform\
@@ -140,6 +140,7 @@ paths:
         schema:
           format: date
           type: string
+          example: '2025-01-20T00:00:00'
         style: form
       - description: Id of the metric to return
         explode: false
@@ -148,6 +149,7 @@ paths:
         required: true
         schema:
           type: string
+          example: 'M04'
         style: simple
       responses:
         "200":
