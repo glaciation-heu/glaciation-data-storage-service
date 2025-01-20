@@ -68,6 +68,7 @@ def readDataAccessRecord(dataId, start_time=None, end_time=None):
                 |> range(start: {start_time}, stop: {end_time})\
                 |> filter(fn:(r) => r._measurement == "data_access")\
                 |> filter(fn:(r) => r.dataId == "{dataId}")'
+    print(f'Query: {query}')
     result = query_api.query(org=ORG, query=query)
 
     results = []
@@ -280,4 +281,9 @@ def readTimeseries(metricId, start_time=None, end_time=None):
 
 
 if __name__ == '__main__':
-    readPredictionResults('M1','2024-02-19T00:00:00Z')
+    #readPredictionResults('M1','2024-02-19T00:00:00Z')
+    readDataAccessRecord(
+        'D01', 
+        '2024-01-01T00:00:00Z',
+        '2025-01-22T00:00:00Z'
+    )
